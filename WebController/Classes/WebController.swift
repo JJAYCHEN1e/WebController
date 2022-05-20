@@ -155,6 +155,8 @@ open class WebController: UIViewController {
     
     // MARK: Public Properties
     
+    public var defaultCookies: [HTTPCookie] = []
+    
     /**
      WebOptions
      */
@@ -280,6 +282,10 @@ open class WebController: UIViewController {
         self.toolView.delegate = self
         self.webView.navigationDelegate = self
         self.webView.uiDelegate = self
+        
+        for defaultCookie in defaultCookies {
+            webView.configuration.websiteDataStore.httpCookieStore.setCookie(defaultCookie)
+        }
         
         self.toolView.initVars()
     }
