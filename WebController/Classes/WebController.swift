@@ -120,7 +120,8 @@ import WebKit
      - completionHandler: The completion handler you must invoke to respond to the challenge. The disposition argument is one of the constants of the enumerated type NSURLSessionAuthChallengeDisposition. When disposition is NSURLSessionAuthChallengeUseCredential, the credential argument is the credential to use, or nil to indicate continuing without a credential.
      */
     @objc optional func webController(_ webController: WebController, challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
-    
+
+    @objc optional func webController(_ webController: WebController, didFinish: URL) -> Void
 }
 
 /*
@@ -552,6 +553,12 @@ extension WebController: WKNavigationDelegate {
         guard self.delegate?.webController?(self, challenge: challenge, completionHandler: completionHandler) != nil else {
             completionHandler(.performDefaultHandling, nil)
             return
+        }
+    }
+
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if let url = webView.url {
+            delegate?.webController?(self, didFinish: url)
         }
     }
 }
