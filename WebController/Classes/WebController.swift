@@ -605,6 +605,7 @@ extension WebController: WKUIDelegate {
         }
     }
     
+    /// https://nemecek.be/blog/1/how-to-open-target_blank-links-in-wkwebview-in-ios
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if let frame = navigationAction.targetFrame,
             frame.isMainFrame {
