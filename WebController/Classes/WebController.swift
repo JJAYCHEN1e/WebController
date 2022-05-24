@@ -460,9 +460,12 @@ open class WebController: UIViewController {
     }
 
     open func titleTap(_ sender: UIButton) {
-        guard let urlPath = self.webView.url?.absoluteString else { return }
-        let activityViewController = UIActivityViewController(activityItems: [urlPath], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
+        guard let url = self.webView.url else { return }
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        activityViewController.title = "分享链接"
+
+        activityViewController.popoverPresentationController?.sourceView = sender
+        activityViewController.popoverPresentationController?.sourceRect = sender.frame
         self.present(activityViewController, animated: true, completion: nil)
     }
 }
